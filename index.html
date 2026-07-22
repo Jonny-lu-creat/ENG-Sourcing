@@ -8,7 +8,7 @@
   <title>英集寻源全球能化项目资讯汇</title>
   <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
   <script>
     tailwind.config = {
       theme: {
@@ -28,6 +28,7 @@
       .text-shadow { text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
       .card-hover { transition: all 0.3s ease; }
       .card-hover:hover { transform: translateY(-6px); box-shadow: 0 8px 24px rgba(230, 184, 0, 0.2); border-color: #E6B800; }
+      /* 原版完整标签样式 */
       .tag-base { @apply px-2 py-1 rounded text-xs text-white; }
       .tag-coal { @apply tag-base bg-amber-700; }
       .tag-oil { @apply tag-base bg-blue-700; }
@@ -40,7 +41,6 @@
       .mosaic-text { filter: blur(6px); user-select: none; pointer-events: none; }
       .touch-btn { @apply min-h-[44px]; }
     }
-    /* 移动端优化 */
     .card-hover {
       -webkit-user-select: none;
       user-select: none;
@@ -61,7 +61,7 @@
   <div class="container mx-auto px-4 py-3 flex flex-col">
     <div class="w-full flex justify-between items-center">
       <h1 class="text-lg md:text-2xl font-bold text-gold leading-tight">
-        <i class="fa fa-globe mr-1"></i>英集寻源全球能化项目资讯汇
+        <i class="fa fa-globe mr-1"></i>英集寻源全球能化项目资讯
       </h1>
       <button id="menuBtn" class="md:hidden text-xl text-white px-2">
         <i class="fa fa-bars"></i>
@@ -105,7 +105,7 @@
       <div class="text-2xl md:text-3xl font-bold text-primary" id="kpiTotal">0</div>
       <div class="text-xs md:text-sm text-gray-500 mt-1">收录全球项目</div>
     </div>
-    <div class="bg-light p-4 md:p-6 rounded-lg border-l-4 border-amber-600 text-center">
+    <div class="bg-light p-6 rounded-lg border-l-4 border-amber-600 text-center">
       <div class="text-2xl md:text-3xl font-bold text-amber-600" id="kpiCore">0</div>
       <div class="text-xs md:text-sm text-gray-500 mt-1">百亿级标杆项目</div>
     </div>
@@ -115,12 +115,12 @@
     </div>
     <div class="bg-light p-4 md:p-6 rounded-lg border-l-4 border-fuchsia-600 text-center">
       <div class="text-2xl md:text-3xl font-bold text-fuchsia-600" id="kpiIndustry">0</div>
-      <div class="text-xs md:text-sm text-gray-500 mt-1">细分行业赛道</div>
+      <div class="text-xs md:text-sm text-gray-500">细分行业赛道</div>
     </div>
   </div>
 </section>
 
-<!-- 筛选栏 -->
+<!-- 筛选栏（无导出按钮） -->
 <section class="container mx-auto px-4 py-4 md:py-6">
   <div class="bg-white p-4 rounded-lg shadow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3 md:gap-4">
     <div>
@@ -184,8 +184,8 @@
         <option value="500-plus">500亿以上</option>
       </select>
     </div>
-    <div class="flex gap-2 items-end">
-      <button id="resetBtn" class="bg-gray-200 px-4 py-2 rounded w-full touch-btn text-sm">重置筛选</button>
+    <div class="flex items-end">
+      <button id="resetBtn" class="bg-gray-200 px-3 py-2 rounded w-full touch-btn text-xs md:text-sm">重置筛选</button>
     </div>
   </div>
 </section>
@@ -204,7 +204,6 @@
 
 <!-- 八大行业板块 -->
 <section class="container mx-auto px-4 pb-10 md:pb-12 space-y-12 md:space-y-16">
-  <!-- 现代煤化工 -->
   <div id="coal">
     <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4 md:mb-6 gap-2">
       <h3 class="text-lg md:text-xl font-bold border-l-4 border-amber-700 pl-3">现代煤化工项目列表 <span class="text-xs md:text-sm text-gray-500" id="coalTitleCount"></span></h3>
@@ -215,8 +214,6 @@
       <button data-target="coalList" data-industry="现代煤化工" onclick="toggleSection(this)" class="section-more-btn bg-primary text-white px-6 py-2 rounded touch-btn text-sm hidden">查看更多</button>
     </div>
   </div>
-
-  <!-- 石油炼化 -->
   <div id="oil">
     <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4 md:mb-6 gap-2">
       <h3 class="text-lg md:text-xl font-bold border-l-4 border-blue-700 pl-3">石油炼化项目列表 <span class="text-xs md:text-sm text-gray-500" id="oilTitleCount"></span></h3>
@@ -227,8 +224,6 @@
       <button data-target="oilList" data-industry="石油炼化" onclick="toggleSection(this)" class="section-more-btn bg-primary text-white px-6 py-2 rounded touch-btn text-sm hidden">查看更多</button>
     </div>
   </div>
-
-  <!-- 新能源 -->
   <div id="newenergy">
     <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4 md:mb-6 gap-2">
       <h3 class="text-lg md:text-xl font-bold border-l-4 border-emerald-600 pl-3">新能源项目列表 <span class="text-xs md:text-sm text-gray-500" id="newenergyTitleCount"></span></h3>
@@ -239,8 +234,6 @@
       <button data-target="newenergyList" data-industry="新能源" onclick="toggleSection(this)" class="section-more-btn bg-primary text-white px-6 py-2 rounded touch-btn text-sm hidden">查看更多</button>
     </div>
   </div>
-
-  <!-- 化工新材料 -->
   <div id="material">
     <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4 md:mb-6 gap-2">
       <h3 class="text-lg md:text-xl font-bold border-l-4 border-fuchsia-600 pl-3">化工新材料项目列表 <span class="text-xs md:text-sm text-gray-500" id="materialTitleCount"></span></h3>
@@ -251,8 +244,6 @@
       <button data-target="materialList" data-industry="化工新材料" onclick="toggleSection(this)" class="section-more-btn bg-primary text-white px-6 py-2 rounded touch-btn text-sm hidden">查看更多</button>
     </div>
   </div>
-
-  <!-- 天然气化工 -->
   <div id="gas">
     <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4 md:mb-6 gap-2">
       <h3 class="text-lg md:text-xl font-bold border-l-4 border-sky-600 pl-3">天然气化工项目列表 <span class="text-xs md:text-sm text-gray-500" id="gasTitleCount"></span></h3>
@@ -263,8 +254,6 @@
       <button data-target="gasList" data-industry="天然气化工" onclick="toggleSection(this)" class="section-more-btn bg-primary text-white px-6 py-2 rounded touch-btn text-sm hidden">查看更多</button>
     </div>
   </div>
-
-  <!-- 精细化工 -->
   <div id="fine">
     <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4 md:mb-6 gap-2">
       <h3 class="text-lg md:text-xl font-bold border-l-4 border-teal-600 pl-3">精细化工项目列表 <span class="text-xs md:text-sm text-gray-500" id="fineTitleCount"></span></h3>
@@ -275,8 +264,6 @@
       <button data-target="fineList" data-industry="精细化工" onclick="toggleSection(this)" class="section-more-btn bg-primary text-white px-6 py-2 rounded touch-btn text-sm hidden">查看更多</button>
     </div>
   </div>
-
-  <!-- 海洋工程 -->
   <div id="ocean">
     <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4 md:mb-6 gap-2">
       <h3 class="text-lg md:text-xl font-bold border-l-4 border-cyan-700 pl-3">海洋工程项目列表 <span class="text-xs md:text-sm text-gray-500" id="oceanTitleCount"></span></h3>
@@ -287,8 +274,6 @@
       <button data-target="oceanList" data-industry="海洋工程" onclick="toggleSection(this)" class="section-more-btn bg-primary text-white px-6 py-2 rounded touch-btn text-sm hidden">查看更多</button>
     </div>
   </div>
-
-  <!-- 其它 -->
   <div id="other">
     <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4 md:mb-6 gap-2">
       <h3 class="text-lg md:text-xl font-bold border-l-4 border-gray-600 pl-3">其它项目列表 <span class="text-xs md:text-sm text-gray-500" id="otherTitleCount"></span></h3>
@@ -301,7 +286,6 @@
   </div>
 </section>
 
-<!-- 底部信息 -->
 <footer class="bg-primary text-white py-8 md:py-12 mt-10 md:mt-12">
   <div class="container mx-auto px-4 text-center text-xs md:text-sm space-y-2">
     <p>英集寻源全球能化项目资讯汇 | 覆盖国内六大区域+海外七大全球区域</p>
@@ -316,16 +300,16 @@
     <div class="text-center mb-6">
       <div class="text-yellow-500 text-4xl md:text-5xl mb-4"><i class="fa fa-key"></i></div>
       <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-2">访问权限验证</h3>
-      <p class="text-sm text-gray-500">输入密钥解锁业主、EPC、物资全部信息</p>
+      <p class="text-sm text-gray-500">输入密钥解锁业主、EPC、物资完整信息</p>
     </div>
     <div class="mb-4">
       <label class="text-sm text-gray-600 block mb-2">访问密钥</label>
-      <input id="accessKeyInput" type="password" placeholder="请输入密钥" class="w-full border px-4 py-3 rounded focus:outline-none focus:border-primary touch-btn">
+      <input id="accessKeyInput" type="password" placeholder="请输入密钥" class="w-full border px-4 py-3 rounded touch-btn">
     </div>
     <p id="keyError" class="text-red-500 text-sm mb-4 hidden">密钥错误，请重新输入或联系管理员</p>
     <div class="flex gap-3">
-      <button onclick="closeKeyModal()" class="flex-1 bg-gray-200 text-gray-700 py-3 rounded hover:bg-gray-300 touch-btn">取消</button>
-      <button onclick="verifyKey()" class="flex-1 bg-primary text-white py-3 rounded hover:opacity-90 touch-btn">确认解锁</button>
+      <button onclick="closeKeyModal()" class="flex-1 bg-gray-200 text-gray-700 py-3 rounded touch-btn">取消</button>
+      <button onclick="verifyKey()" class="flex-1 bg-primary text-white py-3 rounded touch-btn">确认解锁</button>
     </div>
     <p class="text-xs text-gray-400 mt-4 text-center">无密钥？<span class="text-primary cursor-pointer" onclick="showContact()">联系管理员获取</span></p>
   </div>
@@ -335,7 +319,7 @@
 <div id="detailModal" class="hidden fixed inset-0 bg-black/60 z-[9998] flex items-start md:items-center justify-center p-2 md:p-4 overflow-y-auto">
   <div class="bg-white w-full max-w-4xl max-h-[90vh] md:max-h-[85vh] overflow-y-auto rounded-xl shadow-2xl p-4 md:p-8 my-2 md:my-8">
     <div class="flex justify-between items-center mb-4 md:mb-5 border-b pb-3 md:pb-4">
-      <h2 id="detailTitle" class="text-lg md:text-2xl font-bold text-primary leading-tight pr-2"></h2>
+      <h2 id="detailTitle" class="text-lg md:text-2xl font-bold text-primary leading-tight"></h2>
       <div class="flex gap-2 items-center flex-shrink-0">
         <button onclick="copyShareLink()" class="bg-sky-500 text-white px-2 md:px-3 py-1 rounded text-xs md:text-sm touch-btn">
           <i class="fa fa-link mr-1"></i>复制分享
@@ -347,7 +331,7 @@
     <div id="shareFailTip" class="hidden bg-red-100 text-red-700 px-3 py-2 rounded mb-4 text-xs md:text-sm">复制失败，请手动复制链接：<span id="manualUrl"></span></div>
     <div id="detailBody" class="space-y-3 md:space-y-4 text-gray-700 text-sm md:text-base"></div>
     <div class="mt-6 pt-4 border-t text-right">
-      <button onclick="closeDetailModal()" class="bg-primary text-white px-6 py-2 rounded hover:opacity-90 touch-btn">关闭</button>
+      <button onclick="closeDetailModal()" class="bg-primary text-white px-6 py-2 rounded touch-btn">关闭</button>
     </div>
   </div>
 </div>
@@ -357,9 +341,9 @@
   <div class="bg-white w-full max-w-sm rounded-xl shadow-2xl p-6 md:p-8 text-center">
     <div class="text-primary text-3xl md:text-4xl mb-4"><i class="fa fa-phone"></i></div>
     <h3 class="text-base md:text-lg font-bold text-gray-800 mb-3">联系管理员获取密钥</h3>
-    <p class="text-gray-600 mb-2 text-sm">如需查看完整项目资料</p>
+    <p class="text-gray-600 mb-2 text-sm">解锁完整项目信息</p>
     <p class="text-lg md:text-xl font-semibold text-primary mb-6">微信：ENG_SOURCING</p>
-    <button onclick="closeContactModal()" class="bg-primary text-white px-8 py-2 rounded hover:opacity-90 touch-btn">知道了</button>
+    <button onclick="closeContactModal()" class="bg-primary text-white px-8 py-2 rounded touch-btn">知道了</button>
   </div>
 </div>
 
@@ -373,7 +357,42 @@ const BASE_URL = window.location.origin + window.location.pathname;
 const AUTH_STORAGE_KEY = "project_view_auth";
 const SECTION_INIT_LIMIT = 3;
 
-// ========== 项目数据源（PRJ-ONS/OFS统一编号） ==========
+// 字段中文对照表
+const fieldLabelMap = {
+  prjCode:"项目编号",
+  name:"项目名称",
+  province:"省份",
+  city:"城市",
+  area:"区域",
+  industry:"行业",
+  invest:"投资总额",
+  investNum:"投资数值",
+  investUnit:"货币单位",
+  projectStage:"项目阶段",
+  capacity:"产能",
+  chain:"产业链",
+  infoSource:"信息来源",
+  tags:"标签",
+  buildCompany:"建设单位",
+  buildContent:"建设内容",
+  locationDetail:"详细地址",
+  buildPeriod:"建设周期",
+  progress:"项目进度",
+  ownerPhone:"业主联系方式",
+  epcCompany:"EPC单位",
+  materialDemand:"物资需求",
+  updateTime:"更新日期"
+};
+
+// 工具函数
+function deepClone(obj){
+  return JSON.parse(JSON.stringify(obj));
+}
+function normalizeCode(code){
+  return String(code || "").trim().toUpperCase();
+}
+
+// 项目基础数据
 const projects = [
   {
     prjCode:"PRJ-ONS-0001",
@@ -575,7 +594,7 @@ const projects = [
     tags:["焦化升级","CCUS","清洁煤化工"],
     buildCompany:"冀中能源峰峰集团",
     buildContent:"淘汰老旧焦炉，新建清洁焦化、甲醇联产装置，配套CCUS碳捕集系统",
-    locationDetail:"河北邯郸市峰峰煤化工园区",
+    locationDetail:"河北邯郸市峰煤化工园区",
     buildPeriod:"2026-05 ~ 2029-03",
     progress:"环评批复完成",
     ownerPhone:"13730033333",
@@ -595,7 +614,7 @@ const projects = [
     investNum:1178,
     investUnit:"CNY",
     projectStage:"手续审批",
-    capacity:"2000万吨炼油+150万吨乙烯扩建",
+    capacity:"2000万吨炼油+150万吨乙烯",
     chain:"PX、合成橡胶、锂电电解液树脂",
     infoSource:"山东沿海石化减油增化规划",
     tags:["裕龙石化","锂电新材料","国内大型炼化"],
@@ -604,7 +623,7 @@ const projects = [
     locationDetail:"山东省烟台市龙口裕龙岛产业园",
     buildPeriod:"2026-02 ~ 2030-05",
     progress:"一期投产，二期筹备",
-    ownerPhone:"13583555555",
+    ownerPhone:"1358355555",
     epcCompany:"寰球工程、中石化十建",
     materialDemand:"加氢反应器10台、乙烯裂解炉8套、锂电反应釜36台、特种防腐管道260km",
     updateTime:"2026-07-13"
@@ -629,7 +648,7 @@ const projects = [
     buildContent:"新建1000万吨/年常减压蒸馏装置、120万吨/年乙烯装置，同步关停改造延安炼油厂、延安石化厂和永坪炼油厂现有装置",
     locationDetail:"陕西省延安市洛川县",
     buildPeriod:"2026 ~ 2030",
-    progress:"前期工作阶段，已上报国务院待审批，计划2026年内开工",
+    progress:"前期工作阶段，已上报国务院待审批",
     ownerPhone:"0911-1234567",
     epcCompany:"待定",
     materialDemand:"常减压蒸馏装置、乙烯裂解炉、加氢反应器、大型空冷器、高压特种阀门、高温合金管道、DCS控制系统",
@@ -637,13 +656,15 @@ const projects = [
   }
 ];
 
-// ========== 工具函数 ==========
+// ========== 权限判断 ==========
 function isAuthorized(){
   return sessionStorage.getItem(AUTH_STORAGE_KEY) === "1";
 }
 function setAuthorized(){
   sessionStorage.setItem(AUTH_STORAGE_KEY,"1");
 }
+
+// 统一换算人民币金额（USD/EUR自动换算）
 function calcCnyInvest(item){
   let cny = 0;
   if(item.investUnit === "CNY") cny = item.investNum;
@@ -651,20 +672,25 @@ function calcCnyInvest(item){
   else if(item.investUnit === "EUR") cny = item.investNum * RATE_EUR;
   return cny;
 }
+
+// 【核心更新】分级判断统一使用换算后人民币金额
+// 规则：换算后人民币 ≥100亿 = 核心标杆；50≤金额＜100 = 重大项目；不足50无标签
 function getProjectMarkType(item){
-  const val = calcCnyInvest(item);
-  if(val >= 100) return "core";
-  if(val >= 50 && val < 100) return "major";
+  const cnyTotal = calcCnyInvest(item);
+  if(cnyTotal >= 100) return "core";
+  if(cnyTotal >= 50 && cnyTotal < 100) return "major";
   return null;
 }
+
 function sortByUpdateTime(list){
   return [...list].sort((a,b)=>new Date(b.updateTime) - new Date(a.updateTime));
 }
 
-// ========== 统计计算 ==========
+// ========== 统计计算（KPI百亿项目统计自动走换算后金额） ==========
 function calcStats(dataList){
   const list = dataList || projects;
   const total = list.length;
+  // 统计换算后人民币≥100亿的项目
   const coreCount = list.filter(p=>calcCnyInvest(p)>=100).length;
   const areaSet = new Set(list.map(i=>i.area));
   const areaCount = areaSet.size;
@@ -686,8 +712,8 @@ function updateKPI(dataList){
   document.getElementById("kpiIndustry").innerText = s.industryCount;
 }
 
-// 更新板块标题【总计X条】
-function refreshSectionCountLabel(listAll){
+// 更新板块标题计数
+function refreshSectionCount(listAll){
   const industryMap = [
     {ind:"现代煤化工", dom:"coalTitleCount"},
     {ind:"石油炼化", dom:"oilTitleCount"},
@@ -705,7 +731,7 @@ function refreshSectionCountLabel(listAll){
   })
 }
 
-// 生成卡片HTML（底部：左侧编号｜右侧更新时间）
+// 卡片HTML（分级标签自动根据换算人民币生成）
 function buildCardHtml(item){
   const mark = getProjectMarkType(item);
   let markHtml = "";
@@ -750,11 +776,11 @@ function buildCardHtml(item){
         <span class="absolute right-0 bottom-0 text-xs text-amber-600 bg-white/90 px-1 rounded">🔒解锁</span>
       </p>
     </div>
+    <!-- 原版彩色行业标签 + 灰色普通标签 -->
     <div class="mt-3 flex flex-wrap gap-2">
       <span class="${tagClass}">${item.industry}</span>
       ${item.tags.map(t=>`<span class="bg-gray-200 text-gray-700 px-2 py-0.5 rounded text-xs">${t}</span>`).join("")}
     </div>
-    <!-- 分割线上下间距锁定 mt-3 pt-2 -->
     <div class="mt-3 pt-2 border-t text-xs flex justify-between items-center">
       <span class="font-mono text-gray-700">${item.prjCode}</span>
       <span><span class="text-gray-500">更新：</span><span class="text-red-600 font-bold">${item.updateTime}</span></span>
@@ -762,7 +788,7 @@ function buildCardHtml(item){
   </div>`;
 }
 
-// ========== 板块展开逻辑 ==========
+// ========== 板块渲染 ==========
 const sectionExpandState = {};
 function renderSingleSection(list, targetId){
   const container = document.getElementById(targetId);
@@ -792,10 +818,10 @@ function renderAllSections(list){
   renderSingleSection(list.filter(i=>i.industry === "精细化工"),"fineList");
   renderSingleSection(list.filter(i=>i.industry === "海洋工程"),"oceanList");
   renderSingleSection(list.filter(i=>i.industry === "其它"),"otherList");
-  refreshSectionCountLabel(list);
+  refreshSectionCount(list);
 }
 
-// ========== 筛选逻辑（支持prjCode编号检索） ==========
+// ========== 筛选逻辑 ==========
 function getFilterList(){
   const kw = document.getElementById("searchInput").value.toLowerCase();
   const indFilter = document.getElementById("industryFilter").value;
@@ -807,6 +833,7 @@ function getFilterList(){
   if(indFilter !== "all") list = list.filter(i=>i.industry === indFilter);
   if(areaFilter !== "all") list = list.filter(i=>i.area === areaFilter);
   if(stageFilter !== "all") list = list.filter(i=>i.projectStage === stageFilter);
+  // 投资区间筛选同样使用换算后人民币金额判断
   if(investFilter !== "all"){
     list = list.filter(item=>{
       const val = calcCnyInvest(item);
@@ -831,26 +858,14 @@ function getFilterList(){
   return list;
 }
 
-// ========== 图表全局实例 ==========
+// ========== 图表渲染 ==========
 let chartInd, chartArea;
 function initAllChart(list){
   const s = calcStats(list);
   if(chartInd) chartInd.dispose();
   chartInd = echarts.init(document.getElementById("chartIndustry"));
-  const pieData = s.industryChartData.map(item=>{
-    return {
-      name: `${item.name}(${item.value})`,
-      value: item.value
-    }
-  });
-  chartInd.setOption({
-    tooltip:{trigger:"item"},
-    series:[{
-      type:"pie",
-      radius:["40%","70%"],
-      data: pieData
-    }]
-  });
+  const pieData = s.industryChartData.map(item=>({name:`${item.name}(${item.value})`,value:item.value}));
+  chartInd.setOption({tooltip:{trigger:"item"},series:[{type:"pie",radius:["40%","70%"],data:pieData}]});
 
   if(chartArea) chartArea.dispose();
   chartArea = echarts.init(document.getElementById("chartArea"));
@@ -886,14 +901,19 @@ function initAllChart(list){
   });
 }
 
-// 统一全局渲染入口
+// 全局统一渲染
 function fullRender(list){
   updateKPI(list);
   renderAllSections(list);
   initAllChart(list);
 }
+// 筛选入口
+function filterData(){
+  const list = getFilterList();
+  fullRender(list);
+}
 
-// ========== 弹窗逻辑 ==========
+// ========== 弹窗控制 ==========
 function openProjectDetail(pid){
   currentProjectId = pid;
   if(isAuthorized()){
@@ -934,6 +954,8 @@ function verifyKey(){
     document.getElementById("keyError").classList.remove("hidden");
   }
 }
+
+// 详情弹窗内容
 function showDetail(){
   const item = projects.find(x=>x.id === currentProjectId);
   if(!item) return;
@@ -950,49 +972,55 @@ function showDetail(){
     "海洋工程":"tag-ocean",
     "其它":"tag-other"
   }[item.industry];
+
+  function renderRow(labelKey, labelText, value){
+    return `<div><span class="font-semibold text-primary">${labelText}：</span>${value||"无"}</div>`;
+  }
+
   const html = `
   <div class="mb-3 text-xs md:text-sm">
     <span class="bg-light text-primary font-mono font-bold px-3 py-1 rounded">项目编号：${item.prjCode}</span>
   </div>
   <div class="grid md:grid-cols-2 gap-3 md:gap-4">
-    <div><span class="font-semibold text-primary">所属区域：</span>${item.area}</div>
-    <div><span class="font-semibold text-primary">国家/地区：</span>${item.province} ${item.city}</div>
-    <div><span class="font-semibold text-primary">总投资：</span>${item.invest}</div>
+    ${renderRow("area","所属区域",item.area)}
+    ${renderRow("province","省份城市",`${item.province} ${item.city}`)}
+    ${renderRow("invest","总投资",item.invest)}
     <div><span class="font-semibold text-primary">行业：</span><span class="${tagClass}">${item.industry}</span></div>
-    <div><span class="font-semibold text-primary">建设周期：</span>${item.buildPeriod}</div>
-    <div><span class="font-semibold text-primary">项目阶段：</span>${item.projectStage}</div>
-    <div><span class="font-semibold text-primary">项目进度：</span>${item.progress}</div>
-    <div><span class="font-semibold text-primary">信息依据：</span>${item.infoSource}</div>
-    <div class="md:col-span-2"><span class="font-semibold text-primary">详细地址：</span>${item.locationDetail}</div>
-    <div class="md:col-span-2"><span class="font-semibold text-primary">建设单位（业主）：</span>${item.buildCompany}</div>
-    <div class="md:col-span-2"><span class="font-semibold text-primary">业主联系方式：</span>${item.ownerPhone}</div>
-    <div class="md:col-span-2"><span class="font-semibold text-primary">EPC总包单位：</span>${item.epcCompany}</div>
-    <div class="md:col-span-2"><span class="font-semibold text-primary">核心产能：</span>${item.capacity}</div>
-    <div class="md:col-span-2"><span class="font-semibold text-primary">建设内容：</span>${item.buildContent}</div>
-    <div class="md:col-span-2"><span class="font-semibold text-primary">产业链方向：</span>${item.chain}</div>
+    ${renderRow("buildPeriod","建设周期",item.buildPeriod)}
+    ${renderRow("projectStage","项目阶段",item.projectStage)}
+    ${renderRow("progress","项目进度",item.progress)}
+    ${renderRow("infoSource","信息来源",item.infoSource)}
+    ${renderRow("locationDetail","详细地址",item.locationDetail)}
+    ${renderRow("buildCompany","建设单位（业主）",item.buildCompany)}
+    ${renderRow("ownerPhone","业主联系方式",item.ownerPhone)}
+    ${renderRow("epcCompany","EPC总包单位",item.epcCompany)}
+    ${renderRow("capacity","核心产能",item.capacity)}
+    ${renderRow("chain","产业链方向",item.chain)}
     <div class="md:col-span-2">
       <span class="font-semibold text-primary">项目标签：</span>
       ${item.tags.map(t=>`<span class="bg-gray-200 px-2 py-0.5 rounded text-xs mr-2 mt-1 inline-block">${t}</span>`).join("")}
     </div>
+    <div class="md:col-span-2">
+      ${renderRow("buildContent","建设内容",item.buildContent)}
+    </div>
     <div class="md:col-span-2 bg-amber-50 border border-amber-200 p-4 rounded-lg mt-2">
-      <h4 class="font-bold text-amber-800 mb-2"><i class="fa fa-cubes mr-2"></i>物资需求清单</h4>
-      <p>${item.materialDemand}</p>
+      ${renderRow("materialDemand","物资需求清单",item.materialDemand)}
     </div>
     <div class="md:col-span-2 pt-3 mt-2 border-t text-gray-500">
-      <span class="font-semibold">项目更新时间：</span><span class="text-red-600 font-bold">${item.updateTime}</span>
+      ${renderRow("updateTime","项目更新时间",item.updateTime)}
     </div>
   </div>`;
+
   document.getElementById("detailBody").innerHTML = html;
   document.getElementById("detailModal").classList.remove("hidden");
   document.body.style.overflow = "hidden";
 }
 
-// 复制链接
+// 复制分享链接
 async function copyShareLink(){
   const shareUrl = `${BASE_URL}?project=${currentProjectId}`;
   const tipOk = document.getElementById("shareTip");
   const tipFail = document.getElementById("shareFailTip");
-  const urlDom = document.getElementById("manualUrl");
   tipOk.classList.add("hidden");
   tipFail.classList.add("hidden");
   try{
@@ -1018,24 +1046,16 @@ async function copyShareLink(){
       return;
     }
   }catch(e){}
-  urlDom.innerText = shareUrl;
+  document.getElementById("manualUrl").innerText = shareUrl;
   tipFail.classList.remove("hidden");
 }
 
-// 筛选统一入口
-function filterData(){
-  const list = getFilterList();
-  fullRender(list);
-}
-
-// 移动端汉堡菜单切换
+// 移动端菜单切换
 document.getElementById("menuBtn").addEventListener("click", function(){
-  const menu = document.getElementById("mobileMenu");
-  menu.classList.toggle("hidden");
+  document.getElementById("mobileMenu").classList.toggle("hidden");
 });
-// 点击导航链接后自动收起菜单（移动端）
 document.querySelectorAll("#mobileMenu a").forEach(link=>{
-  link.addEventListener("click",function(){
+  link.addEventListener("click",()=>{
     if(window.innerWidth < 768){
       document.getElementById("mobileMenu").classList.add("hidden");
     }
@@ -1044,6 +1064,7 @@ document.querySelectorAll("#mobileMenu a").forEach(link=>{
 
 // 页面初始化
 window.onload = function(){
+  // 清空筛选
   document.getElementById("searchInput").value = "";
   document.getElementById("industryFilter").value = "all";
   document.getElementById("areaFilter").value = "all";
@@ -1052,7 +1073,7 @@ window.onload = function(){
   fullRender([...projects]);
 };
 
-// 绑定全部筛选事件
+// 绑定所有筛选事件
 document.getElementById("resetBtn").addEventListener("click",()=>{
   document.getElementById("searchInput").value = "";
   document.getElementById("industryFilter").value = "all";
@@ -1070,6 +1091,7 @@ document.getElementById("accessKeyInput").addEventListener("keypress",e=>{
   if(e.key === "Enter") verifyKey();
 });
 
+// 窗口缩放重绘图表
 window.addEventListener("resize",()=>{
   if(chartInd) chartInd.resize();
   if(chartArea) chartArea.resize();
