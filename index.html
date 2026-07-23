@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
@@ -330,11 +330,14 @@
     <div id="shareTip" class="hidden bg-green-100 text-green-700 px-3 py-2 rounded mb-4 text-xs md:text-sm">分享链接复制成功，转发他人打开仍需密钥验证</div>
     <div id="shareFailTip" class="hidden bg-red-100 text-red-700 px-3 py-2 rounded mb-4 text-xs md:text-sm">复制失败，请手动复制链接：<span id="manualUrl"></span></div>
     <div id="detailBody" class="space-y-3 md:space-y-4 text-gray-700 text-sm md:text-base"></div>
-    <div class="mt-6 pt-4 border-t text-right">
+<!--
+ <div class="mt-6 pt-4 border-t text-right">
       <button onclick="closeDetailModal()" class="bg-primary text-white px-6 py-2 rounded touch-btn">关闭</button>
     </div>
+-->
   </div>
 </div>
+
 
 <!-- 联系管理员弹窗 -->
 <div id="contactModal" class="hidden fixed inset-0 bg-black/60 z-[10000] flex items-center justify-center p-4">
@@ -392,269 +395,6 @@ function normalizeCode(code){
   return String(code || "").trim().toUpperCase();
 }
 
-// 项目基础数据
-const projects = [
-  {
-    prjCode:"PRJ-ONS-0001",
-    id:1,
-    name:"陕煤榆林煤炭分质转化二期",
-    province:"中国陕西",
-    city:"榆林市",
-    area:"西北",
-    industry:"现代煤化工",
-    invest:"1760亿元人民币",
-    investNum:1760,
-    investUnit:"CNY",
-    projectStage:"施工",
-    capacity:"1800万吨/年煤炭分质转化+120万吨烯烃",
-    chain:"煤制烯烃、乙二醇、可降解塑料",
-    infoSource:"中国十五五现代煤化工规划",
-    tags:["煤制烯烃","绿氢耦合","国内标杆"],
-    buildCompany:"陕煤集团榆林化学",
-    buildContent:"1800万吨煤炭分质清洁转化，配套乙二醇、聚乙烯、绿氢耦合装置",
-    locationDetail:"陕西省榆林市榆神工业区清水化工园",
-    buildPeriod:"2026-03 ~ 2030-12",
-    progress:"一期投产，二期土建施工",
-    ownerPhone:"13909121111",
-    epcCompany:"中国化学六公司、东华科技",
-    materialDemand:"大型气化炉12台、甲醇合成塔6座、离心压缩机28台、高温合金管道320km、DCS控制系统5套、高压特种阀门5600套",
-    updateTime:"2026-07-20"
-  },
-  {
-    prjCode:"PRJ-OFS-0001",
-    id:2,
-    name:"沙特阿美延布炼化三期",
-    province:"沙特阿拉伯",
-    city:"延布",
-    area:"中东",
-    industry:"石油炼化",
-    invest:"200亿美元(约1440亿元人民币)",
-    investNum:200,
-    investUnit:"USD",
-    projectStage:"基础设计",
-    capacity:"2000万吨炼油+150万吨乙烯",
-    chain:"炼油、乙烯、芳烃、聚烯烃",
-    infoSource:"沙特2030愿景能源规划",
-    tags:["沙特阿美","延布工业园","海外大型炼化"],
-    buildCompany:"沙特阿美石油公司",
-    buildContent:"新建2000万吨炼油、150万吨乙烯裂解装置，配套芳烃、聚烯烃生产线",
-    locationDetail:"沙特麦地那省延布工业城",
-    buildPeriod:"2026-01 ~ 2029-12",
-    progress:"FEED设计，EPC招标阶段",
-    ownerPhone:"+966-11-1234567",
-    epcCompany:"TechnipFMC、中石化炼化工程",
-    materialDemand:"离心压缩机12台、高压换热器86台、特种阀门3200套、高温合金管道180km、大型精馏塔24座",
-    updateTime:"2026-07-19"
-  },
-  {
-    prjCode:"PRJ-OFS-0002",
-    id:3,
-    name:"新加坡裕廊岛石化扩建项目",
-    province:"新加坡",
-    city:"裕廊岛",
-    area:"亚太(中国以外)",
-    industry:"石油炼化",
-    invest:"85亿美元(约612亿元人民币)",
-    investNum:85,
-    investUnit:"USD",
-    projectStage:"采购",
-    capacity:"新增1000万吨炼油+80万吨乙烯",
-    chain:"炼油、精细化工、电子化学品",
-    infoSource:"新加坡石化升级计划",
-    tags:["壳牌","电子化工品","裕廊岛"],
-    buildCompany:"壳牌新加坡石化",
-    buildContent:"扩建炼油与乙烯装置，配套高纯电子化学品生产线",
-    locationDetail:"新加坡裕廊岛石化园区",
-    buildPeriod:"2026-03 ~ 2028-09",
-    progress:"基础设计完成，设备采购阶段",
-    ownerPhone:"+65-61234567",
-    epcCompany:"伍德、日挥株式会社",
-    materialDemand:"精密计量泵200台、高纯不锈钢管道50km、防爆电气800套、特种密封件1500套",
-    updateTime:"2026-07-18"
-  },
-  {
-    prjCode:"PRJ-OFS-0006",
-    id:9,
-    name:"科威特阿尔祖尔炼化扩建项目",
-    province:"科威特",
-    city:"阿尔祖尔",
-    area:"中东",
-    industry:"石油炼化",
-    invest:"92亿美元(约662亿元人民币)",
-    investNum:92,
-    investUnit:"USD",
-    projectStage:"手续审批",
-    capacity:"新增1200万吨炼油+90万吨乙烯",
-    chain:"炼油、芳烃、润滑油基础油",
-    infoSource:"科威特2035能源转型方案",
-    tags:["科威特石油","中东炼化扩建","出口型炼厂"],
-    buildCompany:"科威特国家石油KNPC",
-    buildContent:"扩建常减压、加氢、芳烃联合装置，配套润滑油生产线",
-    locationDetail:"科威特阿尔祖尔工业城",
-    buildPeriod:"2027-01 ~ 2030-08",
-    progress:"环评报批、前期手续办理",
-    ownerPhone:"+965-12345678",
-    epcCompany:"Technip、中石油工程公司",
-    materialDemand:"加氢反应器8台、大型空冷器44台、高压阀门2600套、耐腐蚀管道140km",
-    updateTime:"2026-07-21"
-  },
-  {
-    prjCode:"PRJ-OFS-0003",
-    id:4,
-    name:"美国德州风光绿氢一体化基地",
-    province:"美国",
-    city:"德州西部",
-    area:"北美",
-    industry:"新能源",
-    invest:"80亿美元(约576亿元人民币)",
-    investNum:80,
-    investUnit:"USD",
-    projectStage:"施工",
-    capacity:"5GW风光+10万吨/年绿氢",
-    chain:"光伏、风电、PEM电解制氢、液氢储运",
-    infoSource:"美国通胀削减法案氢能补贴",
-    tags:["绿氢","风光制氢","德州新能源"],
-    buildCompany:"Plug Power氢能公司",
-    buildContent:"5GW风光电站、10万吨PEM电解水制氢，配套液氢工厂与储运管网",
-    locationDetail:"美国德克萨斯州西部荒漠新能源基地",
-    buildPeriod:"2026-02 ~ 2028-10",
-    progress:"首批1GW项目开工",
-    ownerPhone:"+1-512-1234567",
-    epcCompany:"NextEra、Bloom Energy",
-    materialDemand:"PEM电解槽200台、风机200台、光伏组件1200万块、高压储氢罐80座、特种氢阀3000套",
-    updateTime:"2026-07-17"
-  },
-  {
-    prjCode:"PRJ-OFS-0004",
-    id:5,
-    name:"德国巴斯夫路德维希港绿色改造",
-    province:"德国",
-    city:"路德维希港",
-    area:"欧洲",
-    industry:"化工新材料",
-    invest:"75亿欧元(约585亿元人民币)",
-    investNum:75,
-    investUnit:"EUR",
-    projectStage:"施工",
-    capacity:"百万吨级绿色生物基新材料",
-    chain:"绿色甲醇、碳纤维、电子特种塑料",
-    infoSource:"欧盟绿色新政",
-    tags:["巴斯夫","碳中和化工","生物基材料"],
-    buildCompany:"巴斯夫欧洲总部",
-    buildContent:"园区低碳改造，新增绿色甲醇、碳纤维、电子化学品全流程装置",
-    locationDetail:"德国莱茵兰-普法尔茨路德维希港化工园",
-    buildPeriod:"2026-01 ~ 2030-05",
-    progress:"一期改造开工",
-    ownerPhone:"+49-621-123456",
-    epcCompany:"林德、蒂森克虏伯",
-    materialDemand:"绿色合成反应器32台、碳纤维生产线6套、高纯特种管道180km、精密控制阀4500套",
-    updateTime:"2026-07-16"
-  },
-  {
-    prjCode:"PRJ-OFS-0005",
-    id:6,
-    name:"俄罗斯西西伯利亚天然气开发项目",
-    province:"俄罗斯",
-    city:"秋明州亚马尔",
-    area:"独联体",
-    industry:"天然气化工",
-    invest:"120亿美元(约864亿元人民币)",
-    investNum:120,
-    investUnit:"USD",
-    projectStage:"详细设计",
-    capacity:"年增产天然气800亿方",
-    chain:"气田开采、净化、干线管道、LNG液化",
-    infoSource:"俄罗斯2035能源战略",
-    tags:["俄气","亚马尔气田","北极LNG"],
-    buildCompany:"俄罗斯天然气工业Gazprom",
-    buildContent:"新建12座气田、净化厂、压气站，配套北极LNG液化生产线",
-    locationDetail:"俄罗斯秋明州亚马尔-涅涅茨自治区",
-    buildPeriod:"2026-02 ~ 2031-12",
-    progress:"多区块分期开发",
-    ownerPhone:"+7-495-1234567",
-    epcCompany:"Gazprom工程、NIPIGAS",
-    materialDemand:"大型压气站24座、大口径输气管道3500km、低温LNG阀门18000套、液化装置4套",
-    updateTime:"2026-07-15"
-  },
-  {
-    prjCode:"PRJ-ONS-0002",
-    id:7,
-    name:"冀中能源峰峰焦化升级项目",
-    province:"中国河北",
-    city:"邯郸峰峰矿区",
-    area:"华北",
-    industry:"现代煤化工",
-    invest:"520亿人民币",
-    investNum:520,
-    investUnit:"CNY",
-    projectStage:"手续审批",
-    capacity:"300万吨清洁焦化+甲醇联产",
-    chain:"焦化、甲醇、碳捕集精细化工",
-    infoSource:"河北煤化工低碳升级规划",
-    tags:["焦化升级","CCUS","清洁煤化工"],
-    buildCompany:"冀中能源峰峰集团",
-    buildContent:"淘汰老旧焦炉，新建清洁焦化、甲醇联产装置，配套CCUS碳捕集系统",
-    locationDetail:"河北邯郸市峰煤化工园区",
-    buildPeriod:"2026-05 ~ 2029-03",
-    progress:"环评批复完成",
-    ownerPhone:"13730033333",
-    epcCompany:"赛鼎工程有限公司",
-    materialDemand:"成套焦化装置4套、甲醇合成设备6套、CO₂捕集塔12座、耐磨输送管道220km",
-    updateTime:"2026-07-14"
-  },
-  {
-    prjCode:"PRJ-ONS-0003",
-    id:8,
-    name:"山东烟台裕龙岛炼化二期",
-    province:"中国山东",
-    city:"龙口裕龙岛",
-    area:"华东",
-    industry:"石油炼化",
-    invest:"1178亿元人民币",
-    investNum:1178,
-    investUnit:"CNY",
-    projectStage:"手续审批",
-    capacity:"2000万吨炼油+150万吨乙烯",
-    chain:"PX、合成橡胶、锂电电解液树脂",
-    infoSource:"山东沿海石化减油增化规划",
-    tags:["裕龙石化","锂电新材料","国内大型炼化"],
-    buildCompany:"山东裕龙石化有限公司",
-    buildContent:"扩建炼油与乙烯装置，配套锂电电解液、合成橡胶新材料生产线",
-    locationDetail:"山东省烟台市龙口裕龙岛产业园",
-    buildPeriod:"2026-02 ~ 2030-05",
-    progress:"一期投产，二期筹备",
-    ownerPhone:"1358355555",
-    epcCompany:"寰球工程、中石化十建",
-    materialDemand:"加氢反应器10台、乙烯裂解炉8套、锂电反应釜36台、特种防腐管道260km",
-    updateTime:"2026-07-13"
-  },
-  {
-    prjCode:"PRJ-ONS-0004",
-    id:10,
-    name:"延长石油延安1000万吨/年炼化一体化转型升级项目",
-    province:"中国陕西",
-    city:"延安市洛川县",
-    area:"西北",
-    industry:"石油炼化",
-    invest:"802.9亿人民币",
-    investNum:802.9,
-    investUnit:"CNY",
-    projectStage:"手续审批",
-    capacity:"1000万吨/年炼油+120万吨/年乙烯",
-    chain:"炼油、乙烯、芳烃、减油增化",
-    infoSource:"陕西省十四五能源产业发展规划",
-    tags:["延长石油","减油增化","西北大型炼化","十四五重点"],
-    buildCompany:"陕西延长石油集团",
-    buildContent:"新建1000万吨/年常减压蒸馏装置、120万吨/年乙烯装置，同步关停改造延安炼油厂、延安石化厂和永坪炼油厂现有装置",
-    locationDetail:"陕西省延安市洛川县",
-    buildPeriod:"2026 ~ 2030",
-    progress:"前期工作阶段，已上报国务院待审批",
-    ownerPhone:"0911-1234567",
-    epcCompany:"待定",
-    materialDemand:"常减压蒸馏装置、乙烯裂解炉、加氢反应器、大型空冷器、高压特种阀门、高温合金管道、DCS控制系统",
-    updateTime:"2026-07-22"
-  }
-];
 
 // ========== 权限判断 ==========
 function isAuthorized(){
@@ -995,49 +735,127 @@ function showDetail(){
     "海洋工程":"tag-ocean",
     "其它":"tag-other"
   }[item.industry];
-
-  function renderRow(labelKey, labelText, value){
-    return `<div><span class="font-semibold text-primary">${labelText}：</span>${value||"无"}</div>`;
-  }
-
   const html = `
-  <div class="mb-3 text-xs md:text-sm">
-    <span class="bg-light text-primary font-mono font-bold px-3 py-1 rounded">项目编号：${item.prjCode}</span>
+  <!--1.项目编号 | 行业 -->
+  <div class="grid md:grid-cols-2 gap-3 mb-3">
+    <div class="flex">
+      <span class="font-semibold text-primary w-[5rem] shrink-0 break-all">项目编号：</span>
+      <span class="bg-light font-mono font-bold px-3 py-1 rounded inline-block">${item.prjCode}</span>
+    </div>
+    <div class="flex">
+      <span class="font-semibold text-primary w-[5rem] shrink-0 break-all">行业：</span>
+      <span class="${tagClass}">${item.industry}</span>
+    </div>
   </div>
-  <div class="grid md:grid-cols-2 gap-3 md:gap-4">
-    ${renderRow("area","所属区域",item.area)}
-    ${renderRow("province","省份城市",`${item.province} ${item.city}`)}
-    ${renderRow("invest","总投资",item.invest)}
-    <div><span class="font-semibold text-primary">行业：</span><span class="${tagClass}">${item.industry}</span></div>
-    ${renderRow("buildPeriod","建设周期",item.buildPeriod)}
-    ${renderRow("projectStage","项目阶段",item.projectStage)}
-    ${renderRow("progress","项目进度",item.progress)}
-    ${renderRow("infoSource","信息来源",item.infoSource)}
-    ${renderRow("locationDetail","详细地址",item.locationDetail)}
-    ${renderRow("buildCompany","建设单位（业主）",item.buildCompany)}
-    ${renderRow("ownerPhone","业主联系方式",item.ownerPhone)}
-    ${renderRow("epcCompany","EPC总包单位",item.epcCompany)}
-    ${renderRow("capacity","核心产能",item.capacity)}
-    ${renderRow("chain","产业链方向",item.chain)}
-    <div class="md:col-span-2">
-      <span class="font-semibold text-primary">项目标签：</span>
-      ${item.tags.map(t=>`<span class="bg-gray-200 px-2 py-0.5 rounded text-xs mr-2 mt-1 inline-block">${t}</span>`).join("")}
-    </div>
-    <div class="md:col-span-2">
-      ${renderRow("buildContent","建设内容",item.buildContent)}
-    </div>
-    <div class="md:col-span-2 bg-amber-50 border border-amber-200 p-4 rounded-lg mt-2">
-      ${renderRow("materialDemand","物资需求清单",item.materialDemand)}
-    </div>
-    <div class="md:col-span-2 pt-3 mt-2 border-t text-gray-500">
-      ${renderRow("updateTime","项目更新时间",item.updateTime)}
-    </div>
-  </div>`;
 
+  <!--2.总投资 | 所属区域 -->
+  <div class="grid md:grid-cols-2 gap-3 mb-2">
+    <div class="flex">
+      <span class="font-semibold text-primary w-[5rem] shrink-0 break-all">总投资：</span>
+      <span>${item.invest}</span>
+    </div>
+    <div class="flex">
+      <span class="font-semibold text-primary w-[5rem] shrink-0 break-all">所属区域：</span>
+      <span>${item.area}</span>
+    </div>
+  </div>
+
+
+  <!--3.建设单位 | 国家省份 / 城市 -->
+  <div class="grid md:grid-cols-2 gap-3 mb-2">
+    <div class="flex">
+      <span class="font-semibold text-primary">建设单位：</span>
+      <span>${item.buildCompany}</span>
+    </div>
+    <div class="flex">
+      <span class="font-semibold text-primary">国家省份/城市：</span>
+      <span>${item.province} ${item.city}</span>
+    </div>
+  </div>
+
+  <!--4.联系方式 | 详细地址 -->
+  <div class="grid md:grid-cols-2 gap-3 mb-2">
+    <div class="flex">
+      <span class="font-semibold text-primary w-[5rem] shrink-0 break-all">联系方式：</span>
+      <span>${item.ownerPhone || "无"}</span>
+    </div>
+    <div class="flex">
+      <span class="font-semibold text-primary w-[5rem] shrink-0 break-all">详细地址：</span>
+      <span>${item.locationDetail}</span>
+    </div>
+  </div>
+
+  <!--5.EPC 总包单位 | 建设周期 -->
+  <div class="grid md:grid-cols-2 gap-3 mb-2">
+    <div class="flex">
+      <span class="font-semibold text-primary w-[5rem] shrink-0 break-all">总包单位：</span>
+      <span>${item.epcCompany || "待定"}</span>
+    </div>
+    <div class="flex">
+      <span class="font-semibold text-primary w-[5rem] shrink-0 break-all">建设周期：</span>
+      <span>${item.buildPeriod || "待补充"}</span>
+    </div>
+  </div>
+
+  <!--6.核心产能 | 产业链 -->
+  <div class="grid md:grid-cols-2 gap-3 mb-2">
+    <div class="flex">
+      <span class="font-semibold text-primary w-[5rem] shrink-0 break-all">核心产能：</span>
+      <span>${item.capacity}</span>
+    </div>
+    <div class="flex">
+      <span class="font-semibold text-primary w-[5rem] shrink-0 break-all">产业链：</span>
+      <span>${item.chain}</span>
+    </div>
+  </div>
+
+  <!--7.单独一行：项目进展 -->
+  <div class="flex mb-2">
+    <span class="font-semibold text-primary w-[5rem] shrink-0 break-all">项目进展：</span>
+    <span>${item.progress}</span>
+  </div>
+
+  <!--8.项目标签独立区块 -->
+  <div class="flex mb-3">
+    <span class="font-semibold text-primary w-[5rem] shrink-0 break-all">项目标签：</span>
+    <div class="flex flex-wrap gap-2">
+      ${item.tags.map(t=>`<span class="bg-gray-200 px-2 py-0.5 rounded text-xs">${t}</span>`).join("")}
+    </div>
+  </div>
+
+  <!--9.建设内容 浅灰背景 -->
+  <div class="bg-slate-50 border border-slate-200 p-4 rounded-lg mb-3">
+    <div class="flex">
+      <span class="font-semibold text-primary w-[5rem] shrink-0 break-all">建设内容：</span>
+      <div class="flex-1">${item.buildContent}</div>
+    </div>
+  </div>
+
+  <!--10.物资需求黄色底区块 -->
+  <div class="bg-amber-50 border border-amber-200 p-4 rounded-lg mb-3">
+    <div class="flex">
+      <span class="font-semibold text-primary w-[5rem] shrink-0 break-all">物资需求：</span>
+      <div class="flex-1">${item.materialDemand}</div>
+    </div>
+  </div>
+
+  <!--11.底部更新时间+信息来源同行 -->
+  <div class="flex justify-between items-center pt-3 border-t text-gray-500">
+    <div class="flex">
+      <span class="text-gray-500 w-[5rem] shrink-0 break-all">更新时间：</span>
+      <span>${item.updateTime}</span>
+    </div>
+    <div class="flex">
+      <span class="font-semibold text-primary w-[5rem] shrink-0 break-all">信息来源：</span>
+      <span>${item.infoSource}</span>
+    </div>
+  </div>
+  `;
   document.getElementById("detailBody").innerHTML = html;
   document.getElementById("detailModal").classList.remove("hidden");
   document.body.style.overflow = "hidden";
 }
+
 
 // 复制分享链接
 async function copyShareLink(){
@@ -1118,7 +936,377 @@ document.getElementById("accessKeyInput").addEventListener("keypress",e=>{
 window.addEventListener("resize",()=>{
   if(chartInd) chartInd.resize();
   if(chartArea) chartArea.resize();
-})
+});
+
+// PROJECT_DATA_START
+// 项目基础数据
+const projects = [
+{
+    prjCode:"PRJ-ONS-0001",
+    id:1,
+    name:"碳五碳九分离及下游新材料项目树脂装置技改工程",
+    province:"中国福建",
+    city:"漳州市",
+    area:"华东",
+    industry:"化工新材料",
+    invest:"3000 万元人民币",
+    investNum:0.3,
+    investUnit:"CNY",
+    projectStage:"手续审批",
+    capacity:"DCPD 加氢树脂 6 万吨 / 年 + 古马隆树脂 2.5 万吨 / 年",
+    chain:"碳五碳九分离→石油树脂→加氢树脂→弹性体",
+    infoSource:"漳州市生态环境局环评受理公示",
+    tags:["碳五碳九，树脂技改，古雷石化基地，化工新材料"],
+    buildCompany:"福建省福化鲁华新材料有限公司",
+    buildContent:"改造和增加部分设备，1#DCPD 树脂加氢单元产能由 4.5 万吨 / 年扩大到 6 万吨 / 年，碳九树脂单元新增古马隆树脂产品 2.5 万吨 / 年，公辅工程依托现有工程",
+    locationDetail:"福建省漳州古雷石化基地石化产业区",
+    buildPeriod:"待补充",
+    progress:"环境影响报告书受理公示中",
+    ownerPhone:"无",
+    epcCompany:"待定",
+    materialDemand:"树脂加氢装置、分离设备、精馏塔、泵阀、DCS 控制系统",
+    updateTime:"2026-07-21"
+},
+{
+    prjCode:"PRJ-ONS-0002",
+    id:2,
+    name:"裕龙岛炼化一体化项目 (一期) 绿色降碳一体化工程 (一期)",
+    province:"中国山东",
+    city:"烟台市龙口市",
+    area:"华东",
+    industry:"石油炼化",
+    invest:"34101.9 万元人民币一期",
+    investNum:3.41019,
+    investUnit:"CNY",
+    projectStage:"手续审批",
+    capacity:"55 万吨 / 年甲醇",
+    chain:"渣油制氢富余合成气→甲醇→醋酸→醋酸乙烯→EVA/PVA/PVB/EVOH 高端新材料",
+    infoSource:"烟台市生态环境局环评受理公示",
+    tags:["裕龙石化，甲醇装置，炼化配套，降碳技改，高端新材料"],
+    buildCompany:"山东裕龙石化有限公司",
+    buildContent:"新建 55 万吨 / 年甲醇装置、配套罐区、机柜间、变电所、循环水站、废气处理设施；依托厂区现有污水处理及公辅，二期配套 40 万吨醋酸、30 万吨醋酸乙烯、CO 深冷分离单元",
+    locationDetail:"山东省烟台市龙口市裕龙石化产业园 2# 岛东北侧预留用地",
+    buildPeriod:"待补充",
+    progress:"环评报告书受理公示，预计 2027 年 6 月投产",
+    ownerPhone:"无",
+    epcCompany:"待定",
+    materialDemand:"甲醇合成塔、精馏塔、储罐、压缩机、CO 深冷分离设备、DCS 控制系统、废气处理装置",
+    updateTime:"2026-07-21"
+},
+{
+    prjCode:"PRJ-ONS-0003",
+    id:3,
+    name:"湛江绿色低碳尿素示范项目 (一期)",
+    province:"中国广东",
+    city:"湛江市东海岛",
+    area:"华南",
+    industry:"现代煤化工",
+    invest:"87170 万元人民币",
+    investNum:8.717,
+    investUnit:"CNY",
+    projectStage:"手续审批",
+    capacity:"60 万吨 / 年大颗粒尿素",
+    chain:"CO?原料→绿色尿素，配套临港化工集群产业链",
+    infoSource:"湛江市生态环境局环评受理公告",
+    tags:["绿色尿素，低碳氮肥，临港化工，两高项目，东海岛"],
+    buildCompany:"广东豫清源科技有限公司",
+    buildContent:"新建 60 万吨 / 年大颗粒尿素生产线，配套公用工程、仓储设施，年运行 8000 小时，配套环保治理设施",
+    locationDetail:"广东省湛江市开发区东海岛化工园区",
+    buildPeriod:"待补充",
+    progress:"环评报告书受理，已完成节能联合评估备案",
+    ownerPhone:"无",
+    epcCompany:"待定",
+    materialDemand:"尿素合成装置、造粒塔、CO?输送管道、储罐、压缩机、环保脱硫脱硝设备",
+    updateTime:"2026-07-21"
+},
+{
+    prjCode:"PRJ-ONS-0004",
+    id:4,
+    name:"600 万吨煤矸石粉煤灰固废资源化综合利用源网荷储一体化项目",
+    province:"中国内蒙古",
+    city:"鄂尔多斯准格尔旗",
+    area:"西北",
+    industry:"化工新材料",
+    invest:"675 亿元人民币",
+    investNum:675,
+    investUnit:"CNY",
+    projectStage:"施工",
+    capacity:"年消纳煤矸石粉煤灰 600 万吨，年产铝硅及硅铝钛多元合金 200 万吨，配套风光总装机 8GW",
+    chain:"煤矿煤矸石 / 粉煤灰固废→球团原料→铝硅钛合金新材料→风光储能绿电配套循环产业链",
+    infoSource:"能源知库微信公众号资讯、鄂尔多斯生态环境局环评公示",
+    tags:["煤基固废，源网荷储，硅铝合金，风光储能，循环经济，内蒙古新建项目"],
+    buildCompany:"汇能硅铝新材料科技 (准格尔) 有限责任公司",
+    buildContent:"建设原料制粉、球团制备、合金熔炼铸造全套生产线；配套 8GW 风电光伏、储能电站、余热发电、智能微电网、循环水、污水处理、危废处置、变电站、综合管廊等公辅设施；首期建设 100 万吨铝硅合金配套源网荷储装置",
+    locationDetail:"内蒙古鄂尔多斯准格尔经济开发区大路产业园",
+    buildPeriod:"2026-07 ~ 2029-06",
+    progress:"2026 年 7 月 19 日正式开工，场平、设计招标已全部完成，进入土建施工阶段",
+    ownerPhone:"无",
+    epcCompany:"待定",
+    materialDemand:"固废制粉设备、球团成型机组、合金熔炼炉、电解配套装置、风机光伏组件、储能电池舱、变电站变压器、循环水设备、环保脱硫脱硝装置、DCS 控制系统",
+    updateTime:"2026-07-21"
+},
+{
+    prjCode:"PRJ-OFS-0001",
+    id:5,
+    name:"乌姆沙伊夫气顶海上天然气开发项目",
+    province:"阿联酋",
+    city:"阿布扎比",
+    area:"中东",
+    industry:"海洋工程",
+    invest:"62 亿美元 (约 440 亿元人民币)",
+    investNum:62,
+    investUnit:"USD",
+    projectStage:"手续审批",
+    capacity:"2030 年初期日产天然气超 6 亿标准立方英尺，远期最大日产 15 亿标准立方英尺，同步回收伴生凝析油",
+    chain:"海上气顶油气藏开采→天然气净化分离→本土供气 + LNG 出口，凝析油加工外销",
+    infoSource:"ADNOC 官方投资公告、建造视界微信公众号行业资讯、道达尔能源官方新闻稿",
+    tags:["海上天然气，气顶资源，LNG 出口，中资参股，阿联酋能源自主，海外油气"],
+    buildCompany:"阿布扎比国家石油公司 (ADNOC)",
+    buildContent:"实施 14 口开发井钻井工程，配套 3 座现有海上钻井平台，钻井周期 18 个月；新建海上天然气开采模块、净化装置、凝析油回收系统、海底输气管线、上岸处理站；分 3 个 EPC 总包标段建设，接入阿联酋国家清洁电网，复用原有海上场站降低投资成本",
+    locationDetail:"阿联酋阿布扎比海域乌姆沙伊夫海上油气特许区块",
+    buildPeriod:"2026-07 ~ 2030-06",
+    progress:"2026 年 7 月完成最终投资决议 FID，三大 EPC 总包标段招标推进，钻井工程即将启动，整体规划 2030 年建成投产",
+    ownerPhone:"无",
+    epcCompany:"阿联酋本土工程企业 + 国际工程联营体",
+    materialDemand:"海上钻井平台、海底防腐输气管线、天然气净化分离设备、凝析油回收装置、大型高压压缩机、海上处理模块、自控 DCS 系统、海上防腐配套设备",
+    updateTime:"2026-07-21"
+},
+{
+    prjCode:"PRJ-ONS-0005",
+    id:1,
+    name:"准东 600 万吨 / 年煤基甲醇一体化项目",
+    province:"中国新疆",
+    city:"准东",
+    area:"西北",
+    industry:"现代煤化工",
+    invest:"300 亿元人民币",
+    investNum:300,
+    investUnit:"CNY",
+    projectStage:"施工",
+    capacity:"年产 600 万吨精甲醇，年消耗原煤 1200 万吨；配套电解水制氢装置，副产硫磺、液态 CO₂",
+    chain:"准东煤炭→粉煤气化→净化→甲醇合成精馏→下游烯烃 / 新材料原料",
+    infoSource:"一级：其亚集团官网、新疆准东经开区环保局 2025-04 环评公示；二级：今日头条产业报道；三级：石油和化工采供资讯 2026-07-23 06:30",
+    tags:["煤基甲醇，绿氢耦合，大型煤化工，新疆准东，航天气化"],
+    buildCompany:"新疆其亚新材料有限公司（其亚集团）",
+    buildContent:"新建粉煤气化、变换净化、甲醇合成、空分、硫回收、电解水整套装置，配套储运环保道路工程",
+    locationDetail:"新疆准东经济技术开发区将军庙产业园",
+    buildPeriod:"2024-06 ~ 2028-06",
+    progress:"2024 年启动，2026 年全面复工，气化、空分装置在建",
+    ownerPhone:"无",
+    epcCompany:"待定",
+    materialDemand:"粉煤气化炉、空分冷箱、甲醇合成反应器、电解槽、压缩机、污水处理成套设备",
+    updateTime:"2026-07-23"
+},
+{
+    prjCode:"PRJ-ONS-0006",
+    id:2,
+    name:"林西县风光制氢一体化年产 20 万吨绿色甲醇项目",
+    province:"中国内蒙古",
+    city:"林西县",
+    area:"华北",
+    industry:"新能源",
+    invest:"38.9 亿元人民币",
+    investNum:38.9,
+    investUnit:"CNY",
+    projectStage:"手续审批",
+    capacity:"总产能 20 万吨 / 年绿色甲醇，一期 10 万吨 / 年，日消纳牛粪 2000 吨",
+    chain:"风光绿电→电解制氢→生物质气化→绿色甲醇",
+    infoSource:"一级：中煤采购平台询价公告、中能建可研评审文件；二级：煤化工信息网；三级：能源知库 2026-07-22、煤化客 2026-07-23 09:46",
+    tags:["绿氢，生物质制甲醇，风光耦合，碳中和，中煤"],
+    buildCompany:"中国中煤能源集团",
+    buildContent:"生物质制粉、气化、合成净化、甲醇精馏、空分、CO₂压缩装置，配套风电光伏园区",
+    locationDetail:"内蒙古赤峰市林西县工业园区东南",
+    buildPeriod:"待定～待定",
+    progress:"可研已评审，气化技术评审采购阶段，计划年内开工",
+    ownerPhone:"无",
+    epcCompany:"待定",
+    materialDemand:"生物质气化炉、PSA 脱碳、甲醇精馏塔、电解水制氢设备、光伏风机组件",
+    updateTime:"2026-07-23"
+},
+{
+    prjCode:"PRJ-ONS-0007",
+    id:3,
+    name:"浙石化炼化一体化改造提升工程",
+    province:"中国浙江",
+    city:"舟山市",
+    area:"华东",
+    industry:"石油炼化",
+    invest:"196 亿元人民币",
+    investNum:196,
+    investUnit:"CNY",
+    projectStage:"基础设计",
+    capacity:"依托 4000 万吨 / 年炼厂，增产芳烃、氢气、轻烃、重芳烃深加工产品",
+    chain:"原油炼化→重整制氢→轻烃分离→高端化工原料",
+    infoSource:"一级：荣盛石化深交所 2026-07-16 公告；二级：新浪、搜狐财经；三级：煤油一体化 2026-07-21",
+    tags:["炼化技改，连续重整，氢气提浓，轻烃综合利用"],
+    buildCompany:"浙江石油化工有限公司（荣盛石化）",
+    buildContent:"新建连续重整、氢提浓、C1/C2、C10 分离装置，现有装置扩能技改",
+    locationDetail:"浙江舟山金塘岛浙石化产业园",
+    buildPeriod:"2026-08 ~ 2028-08",
+    progress:"上市公司立项，进入前期方案设计",
+    ownerPhone:"无",
+    epcCompany:"待定",
+    materialDemand:"重整反应器、精馏塔、大型加热炉、加氢压缩机、催化剂成套设备",
+    updateTime:"2026-07-23"
+},
+{
+    prjCode:"PRJ-ONS-0008",
+    id:4,
+    name:"山西天泽煤气化厂锅炉升级改造项目",
+    province:"中国山西",
+    city:"晋城市",
+    area:"华北",
+    industry:"现代煤化工",
+    invest:"未披露",
+    investNum:0,
+    investUnit:"CNY",
+    projectStage:"手续审批",
+    capacity:"一期 2×150t/h 锅炉（1 开 1 备），二期新增 1×150t/h 锅炉，产能维持不变",
+    chain:"煤炭供热→全厂化工装置蒸汽供给",
+    infoSource:"一级：晋城市生态环境局环评公示；三级：气化界公众号 2026-07-23 09:46",
+    tags:["锅炉技改，超低排放，煤化工配套，余热利用"],
+    buildCompany:"山西天泽煤化工集团股份公司",
+    buildContent:"拆除老旧锅炉，新建高效燃煤锅炉，配套脱硫脱硝除尘超低排放系统",
+    locationDetail:"山西省晋城市北留周村工业园区",
+    buildPeriod:"待定～待定",
+    progress:"环评征求意见稿公示阶段",
+    ownerPhone:"张瑞康，15135625580，zhangruikang@163.com",
+    epcCompany:"待定",
+    materialDemand:"高效煤粉锅炉、布袋除尘器、SCR 脱硝、半干法脱硫装置、在线监测设备",
+    updateTime:"2026-07-23"
+},
+{
+    prjCode:"PRJ-ONS-0009",
+    id:5,
+    name:"山西天泽永丰化肥燃煤锅炉升级改造项目",
+    province:"中国山西",
+    city:"晋城市",
+    area:"华北",
+    industry:"现代煤化工",
+    invest:"未披露",
+    investNum:0,
+    investUnit:"CNY",
+    projectStage:"手续审批",
+    capacity:"新建 1×130t/h 高效燃煤锅炉，替换厂区 5 台老旧锅炉",
+    chain:"煤炭供热→化肥合成装置蒸汽供给",
+    infoSource:"一级：晋城市生态环境局环评公示；三级：气化界公众号 2026-07-23 09:46",
+    tags:["锅炉技改，超低排放，化肥配套，节能改造"],
+    buildCompany:"山西天泽集团永丰化肥有限公司",
+    buildContent:"拆除现有 5 台老旧锅炉，原址新建 130t/h 锅炉，配套全套环保治理设施",
+    locationDetail:"山西省晋城市巴公工业园区",
+    buildPeriod:"待定～待定",
+    progress:"环评征求意见稿公示阶段",
+    ownerPhone:"范江涛，13935689928，tzyfajk@126.com",
+    epcCompany:"待定",
+    materialDemand:"煤粉锅炉、除尘脱硫脱硝成套设备、消防与安全监测系统",
+    updateTime:"2026-07-23"
+},
+{
+    prjCode:"PRJ-ONS-0010",
+    id:6,
+    name:"内蒙古大唐 7 万吨 / 年粗酚精制项目",
+    province:"中国内蒙古",
+    city:"赤峰市",
+    area:"华北",
+    industry:"精细化工",
+    invest:"2.48 亿元人民币",
+    investNum:2.48,
+    investUnit:"CNY",
+    projectStage:"手续审批",
+    capacity:"年处理粗酚 7 万吨，年产苯酚 2.73 万吨、邻甲酚 0.448 万吨、间对甲酚 1.348 万吨、二甲酚 0.15 万吨",
+    chain:"煤制气副产粗酚→精馏分离高端酚类精细化工品",
+    infoSource:"一级：赤峰市生态环境局拟批复公示；三级：煤化客 2026-07-23 09:51",
+    tags:["粗酚精制，煤制气副产利用，精细酚，精馏工艺"],
+    buildCompany:"内蒙古大唐国际克什克腾煤制天然气有限责任公司",
+    buildContent:"新建预处理、5 塔连续精馏 + 3 塔间歇精馏装置，配套罐区、雨水收集、环保设施，公用工程依托现有厂区",
+    locationDetail:"内蒙古赤峰克什克腾工业园区大唐现有厂区",
+    buildPeriod:"待定～待定",
+    progress:"环评拟批复公示阶段",
+    ownerPhone:"无",
+    epcCompany:"待定",
+    materialDemand:"精馏塔、粗酚预处理设备、产品储罐、废水废气处理成套装置",
+    updateTime:"2026-07-23"
+},
+{
+    prjCode:"PRJ-ONS-0011",
+    id:7,
+    name:"山东东明石化 1000 万吨 / 年炼化一体化项目",
+    province:"中国山东",
+    city:"菏泽市",
+    area:"华东",
+    industry:"石油炼化",
+    invest:"713 亿元人民币",
+    investNum:713,
+    investUnit:"CNY",
+    projectStage:"手续审批",
+    capacity:"1000 万吨 / 年常减压，配套 100 万吨 / 年乙烯、240 万吨 / 年 PX，下游配套 EVA、FDPE、UHMWPE、m-PP、EPOE 等聚烯烃装置；配套 30 万吨 / 年 EPOE 子项目（投资 40 亿）",
+    chain:"原油加工→乙烯 / 芳烃→高端聚烯烃弹性体（EPOE/POE）",
+    infoSource:"一级：菏泽市生态环境局环评第一次公示、中项网产业报道；三级：石油化工论坛公众号 2026-07-23 11:07",
+    tags:["千万吨炼化，EPOE","高端聚烯烃，POE 国产化，绿色炼化"],
+    buildCompany:"山东东明石化集团有限公司",
+    buildContent:"新建 1000 万吨常减压、100 万吨乙烯、240 万吨 PX 及全套下游聚烯烃装置，配套 30 万吨 EPOE 工业化装置、储运、环保、公用工程",
+    locationDetail:"山东省菏泽市东明县东明石化产业园",
+    buildPeriod:"待定～待定",
+    progress:"环评公众参与第一次公示阶段，30 万吨 EPOE 子项目已开工",
+    ownerPhone:"无",
+    epcCompany:"北油工程（EPOE 中试总包）",
+    materialDemand:"常减压蒸馏装置、乙烯裂解炉、PX 精馏塔、聚烯烃聚合反应器、EPOE 成套设备、加氢装置",
+    updateTime:"2026-07-23"
+},
+{
+    prjCode:"PRJ-ONS-0012",
+    id:8,
+    name:"淄博鑫泰石化全厂流程优化产品结构调整技改项目",
+    province:"中国山东",
+    city:"淄博市",
+    area:"华东",
+    industry:"石油炼化",
+    invest:"0.855966 亿元人民币",
+    investNum:0.855966,
+    investUnit:"CNY",
+    projectStage:"手续审批",
+    capacity:"改造 50 万吨蜡油加氢、35 万吨尾油加氢异构、15 万吨食品级白油装置，新建 200t/h 溶剂再生备用单元，产出食品级白油、航煤、变压器油等",
+    chain:"原油加氢精制→高端润滑油、特种油品",
+    infoSource:"一级：山东省生态环境局环评受理公示；三级：化学技术流公众号 2026-07-23 07:00",
+    tags:["炼厂技改，白油，蜡油加氢，溶剂再生，油品升级"],
+    buildCompany:"淄博鑫泰石化有限公司（山东睿霖高分子下属）",
+    buildContent:"三套现有加氢装置改造，新建 200t/h 溶剂再生备用单元，配套环保、储运改造，不新增用地",
+    locationDetail:"山东省淄博市临淄区齐鲁化学工业区睿霖化工片区",
+    buildPeriod:"改造周期 6 个月",
+    progress:"环评报告书受理公示阶段",
+    ownerPhone:"无",
+    epcCompany:"待定",
+    materialDemand:"加氢反应器、精馏分馏塔、溶剂再生成套设备、真空机组、加热炉、环保脱硫装置",
+    updateTime:"2026-07-23"
+},
+{
+    prjCode:"PRJ-OFS-0002",
+    id:9,
+    name:"阿曼 PDO 六年油气综合 EPC 框架项目",
+    province:"阿曼",
+    city:"马斯喀特",
+    area:"中东",
+    industry:"其它",
+    invest:"600 亿美元",
+    investNum:600,
+    investUnit:"USD",
+    projectStage:"框架签约",
+    capacity:"六年周期内可承接阿曼全境油气新建、改造、检修全系列项目包",
+    chain:"陆上 / 海上油气勘探开发→油气设施建设运维",
+    infoSource:"一级：阿曼 PDO 官方公告、埃及石油部公示；二级：Arab News、Seetao；三级：Landman 公众号 2026-07-23 07:30",
+    tags:["阿曼油气，EPC 框架，六年总包，埃及联合体，上游开发"],
+    buildCompany:"Petrojet+Enppi 埃及联合体",
+    buildContent:"涵盖油气厂详细设计、设备采购、现场施工、安装调试、全周期项目管理",
+    locationDetail:"阿曼马斯喀特 PDO 总部，覆盖阿曼全国油气区块",
+    buildPeriod:"2026 ~ 2032",
+    progress:"六年框架协议正式签署，四家国际预审联合体之一",
+    ownerPhone:"无",
+    epcCompany:"Petrojet、Enppi",
+    materialDemand:"油气专用管线、钻井设备、炼化成套装置、自控系统、防腐材料、场站钢结构",
+    updateTime:"2026-07-23"
+}
+];
+// PROJECT_DATA_END
 </script>
 </body>
 </html>
